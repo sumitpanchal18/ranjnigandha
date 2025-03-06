@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rajanigandha/utils/color_constant.dart';
 
+import '../../widgets/custom_button.dart';
 import '../images.dart';
 import '../routes.dart';
 
@@ -48,11 +49,7 @@ class _BaseScreenState extends State<BaseScreen> {
               fit: BoxFit.cover, // Ensures it covers the full screen
             ),
           ),
-          Container(
-              padding: EdgeInsets.only(top: AppBar().preferredSize.height+10),
-              color: Colors.transparent,
-              child: widget.body
-          )
+          SafeArea(child: widget.body)
         ],
       ), // Dynamic content for each screen
       bottomNavigationBar: _buildNavBar(),
@@ -93,18 +90,28 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget _buildDrawer() {
     return Drawer(
       backgroundColor: const Color(0xFF020E3F),
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
           _buildDrawerHeader(),
-          _buildDrawerItem("Dashboard", Icons.dashboard, 0),
-          _buildDrawerItem("My Account", Icons.person, 1),
-          _buildDrawerItem("Earn Points", Icons.monetization_on, 2),
-          _buildDrawerItem("Transaction History", Icons.history, 3),
-          _buildDrawerItem("Redeem Points", Icons.card_giftcard, 4),
-          _buildDrawerItem("Track Your Order", Icons.track_changes, 5),
-          _buildDrawerItem("About The Program", Icons.info, 6),
-          _buildDrawerItem("FAQs", Icons.help, 7),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _buildDrawerItem("Dashboard", Icons.dashboard, 0),
+                _buildDrawerItem("My Account", Icons.person, 1),
+                _buildDrawerItem("Earn Points", Icons.monetization_on, 2),
+                _buildDrawerItem("Transaction History", Icons.history, 3),
+                _buildDrawerItem("Redeem Points", Icons.card_giftcard, 4),
+                _buildDrawerItem("Track Your Order", Icons.track_changes, 5),
+                _buildDrawerItem("Refund Point Details", Icons.track_changes, 6),
+                _buildDrawerItem("About The Program", Icons.info, 7),
+                _buildDrawerItem("Schemes", Icons.info, 8),
+                _buildDrawerItem("TVC Brands", Icons.info, 9),
+                _buildDrawerItem("My Redemptions", Icons.info, 10),
+                _buildDrawerItem("FAQs", Icons.help, 11),
+              ],
+            ),
+          ),
           const SizedBox(height: 20),
           _buildLogoutButton(),
         ],
@@ -141,9 +148,14 @@ class _BaseScreenState extends State<BaseScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "Srishti Sharma",
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(Routes.updateProfile);
+                  },
+                  child: const Text(
+                    "Srishti Sharma",
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const Text(
                   "Point Balance 604",
@@ -160,7 +172,6 @@ class _BaseScreenState extends State<BaseScreen> {
   /// 🔹 Drawer List Item
   Widget _buildDrawerItem(String title, IconData icon, int index) {
     return ListTile(
-      leading: Icon(icon, color: Colors.white),
       title: Text(title, style: const TextStyle(color: Colors.white, fontSize: 16)),
       onTap: () {
         setState(() {
@@ -173,6 +184,34 @@ class _BaseScreenState extends State<BaseScreen> {
         if(index == 2){
           Get.toNamed(Routes.earnPoint);
         }
+        //3
+        if(index == 3){
+          Get.toNamed(Routes.transactionHistory);
+        }
+        //4
+        if(index == 4){
+          Get.toNamed(Routes.redeemPoints);
+        }
+        //7
+        if(index == 7){
+          Get.toNamed(Routes.aboutUs);
+        }
+        //8
+        if(index == 8){
+          Get.toNamed(Routes.schemesScreen);
+        }
+        //9
+        if(index == 9){
+          Get.toNamed(Routes.brandTvc);
+        }
+        //10
+        if(index == 10){
+          Get.toNamed(Routes.eVoucherRedeemScreen);
+        }
+        //11
+        if(index == 11){
+          Get.toNamed(Routes.faqsScreen);
+        }
 
       },
     );
@@ -181,66 +220,65 @@ class _BaseScreenState extends State<BaseScreen> {
   /// 🔹 Logout Button
   Widget _buildLogoutButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ElevatedButton(
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      child: AppGradientButton(
         onPressed: () {
-          Get.back();
-          Get.offAllNamed(Routes.login); // Navigate to login screen and remove all previous routes
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.amber,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
-        child: const Text("Logout", style: TextStyle(color: Colors.black, fontSize: 16)),
+          // Perform logout action
+        }, text: "Logout",
+      ),
+    );
+  }
+  Widget _buildNavBar() {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashFactory: NoSplash.splashFactory, // Disables ripple effect
+        highlightColor: btnbordercolor.gd2, // Removes highlight effect
+      ),
+      child: BottomNavigationBar(
+        backgroundColor: const Color(0xFF020E3F),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 0,
+        onTap: (index) {},
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.redeem),
+            label: 'Redeem',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: ColorConstant.buttonColor,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Icon(
+                Icons.qr_code,
+                size: 30,
+                color: Colors.white,
+              ),
+            ),
+            label: 'Scan & Earn',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildNavBar() {
-    return BottomNavigationBar(
-      backgroundColor: const Color(0xFF020E3F),
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white70,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: 0,
-      onTap: (index) {
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.redeem),
-          label: 'Redeem',
-        ),
-        BottomNavigationBarItem(
-          icon: Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: ColorConstant.buttonColor,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Icon(
-              Icons.qr_code,
-              size: 30,
-              color: Colors.white,
-            ),
-          ),
-          label: 'Scan & Earn',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history),
-          label: 'History',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
-    );
-  }
 }

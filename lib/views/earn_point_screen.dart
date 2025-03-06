@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rajanigandha/utils/base/base_screen.dart';
 import 'package:rajanigandha/utils/color_constant.dart';
 import 'package:rajanigandha/utils/images.dart';
+import 'package:rajanigandha/widgets/custom_button.dart';
 
 class EarnPointsScreen extends StatefulWidget {
   const EarnPointsScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _EarnPointsScreenState extends State<EarnPointsScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 16,right: 16, bottom: 10,top: 16),
             child: Card(
-              color: ColorConstant.product_bg_clor,
+              color: ColorConstant.bottomNavigationBarcolor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -45,7 +46,7 @@ class _EarnPointsScreenState extends State<EarnPointsScreen> {
                     const SizedBox(width: 8),
                     const Text(
                       'Earn Points',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     const Spacer(),
                     Text(
@@ -105,17 +106,17 @@ class _EarnPointsScreenState extends State<EarnPointsScreen> {
       enabled: isEditable,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.black),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white70),
         filled: true,
-        fillColor: Colors.white24,
+        fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white24),
+          borderSide: const BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white24),
+          borderSide: const BorderSide(color: Colors.orange),
           borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(
@@ -123,35 +124,15 @@ class _EarnPointsScreenState extends State<EarnPointsScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black, fontSize: 14),
     );
   }
   Widget _buildButton(String text) {
-    return GestureDetector(
-      onTap: () {
-        // Add your onTap functionality here
-      },
-      child: Container(
-        height: 50,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          gradient: const LinearGradient(
-            colors: [Color(0xFFFFC107), Color(0xFFFFA000)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 18,
-            color: ColorConstant.product_bgclrsg,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+    return AppGradientButton(
+      text: text,
+      height: 40,
+      textStyle: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+      onPressed: () {},
     );
   }
 

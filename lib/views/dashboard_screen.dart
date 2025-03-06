@@ -29,11 +29,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return BaseScreen(
       title: 'Dashboard',
-      rightButton: IconButton(
-        icon: Icon(Icons.shopping_cart, color: Colors.white),
-        onPressed: () {
-          Get.toNamed(Routes.cart);
-        },
+      rightButton: Row(
+        children: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart, color: Colors.white),
+            onPressed: () {
+              Get.toNamed(Routes.cart);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {
+              Get.toNamed(Routes.notificationScreen);
+            },
+          ),
+        ],
       ),
       body: Expanded(
         child: SingleChildScrollView(
@@ -177,6 +187,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         // Perform action based on the button clicked
         if(title == "Earn Point") {
           Get.toNamed(Routes.earnPoint);
+        }
+        if(title == "Redeem Points") {
+          Get.toNamed(Routes.redeemPoints);
+        }
+        if(title == "Transaction History") {
+          Get.toNamed(Routes.transactionHistory);
         }
       },
       child: Container(

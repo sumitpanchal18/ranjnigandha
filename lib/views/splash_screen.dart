@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rajanigandha/utils/images.dart';
@@ -15,7 +14,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Delay 2 seconds
     Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed(Routes.login);
+      Get.offAllNamed(Routes.dashboard);
     });
 
     return Scaffold(

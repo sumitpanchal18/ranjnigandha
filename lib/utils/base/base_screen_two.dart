@@ -31,8 +31,7 @@ class BaseScreenTwo extends StatelessWidget {
           ),
 
           /// 🔹 Page Content
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
+          SafeArea(
             child: body,
           ),
         ],

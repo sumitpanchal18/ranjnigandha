@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rajanigandha/utils/base/base_screen.dart';
 import 'package:rajanigandha/utils/color_constant.dart';
 import 'package:rajanigandha/utils/images.dart';
+import 'package:rajanigandha/widgets/category_item.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -38,74 +39,74 @@ class _BrandTVCScreenState extends State<BrandTVCScreen> {
           // Main Content
           Column(
             children: [
-              // SizedBox(
-              //   height: 70,
-              //   child: AppBar(
-              //     actionsIconTheme: const IconThemeData(color: Colors.white),
-              //     backgroundColor: Colors.transparent,
-              //     elevation: 0,
-              //     title: const Text("Brand TVC", style: TextStyle(color: Colors.white)),
-              //   ),
-              // ),
-              // Category filter (Horizontal List)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Column(
-                  children: [
-                    Divider(
-                      color: ColorConstant.gd1,
-                    ),
-                    SizedBox(
-                      height: 50,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: ColorConstant.gd1),
+                  ),
+                  child: SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          CategoryChip(
-                            label: 'All',
+                          CategoryItem(
                             isSelected: _selectedCategory == 'All',
+                            selectedBackgroundColor: ColorConstant.gd1,
+                            unselectedBorderColor: ColorConstant.appColor,
+                            selectedBorderColor: ColorConstant.gd1,
                             onTap: () {
                               setState(() {
                                 _selectedCategory = 'All';
                               });
-                            },
+                            }, title: 'All',
                           ),
-                          CategoryChip(
-                            label: 'Pan Masala',
+                          SizedBox(width: 20),
+                          CategoryItem(
                             isSelected: _selectedCategory == 'Pan Masala',
+                            selectedBackgroundColor: ColorConstant.gd1,
+                            unselectedBorderColor: ColorConstant.appColor,
+                            selectedBorderColor: ColorConstant.gd1,
                             onTap: () {
                               setState(() {
                                 _selectedCategory = 'Pan Masala';
                               });
-                            },
+                            }, title: 'Pan Masala',
                           ),
-                          CategoryChip(
-                            label: 'Silver Pearls',
+                          SizedBox(width: 20),
+                          CategoryItem(
                             isSelected: _selectedCategory == 'Silver Pearls',
+                            selectedBackgroundColor: ColorConstant.gd1,
+                            unselectedBorderColor: ColorConstant.appColor,
+                            selectedBorderColor: ColorConstant.gd1,
                             onTap: () {
                               setState(() {
                                 _selectedCategory = 'Silver Pearls';
                               });
-                            },
+                            }, title: 'Silver Pearls',
                           ),
-                          CategoryChip(
-                            label: 'Clove Pan Masala',
+                          SizedBox(width: 20),
+                          CategoryItem(
                             isSelected: _selectedCategory == 'Clove Pan Masala',
+                            selectedBackgroundColor: ColorConstant.gd1,
+                            unselectedBorderColor: ColorConstant.appColor,
+                            selectedBorderColor: ColorConstant.gd1,
                             onTap: () {
                               setState(() {
                                 _selectedCategory = 'Clove Pan Masala';
                               });
-                            },
+                            }, title: 'Clove Pan Masala',
                           ),
                         ],
                       ),
                     ),
-                    Divider(
-                      color: ColorConstant.gd1,
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              // Grid of Brand TVCs (Videos)
               Expanded(
                 child: GridView.builder(
                   padding: const EdgeInsets.all(16.0),
@@ -151,13 +152,14 @@ class CategoryChip extends StatelessWidget {
           label: Text(
             label,
             style: TextStyle(
-              color: isSelected ? Colors.black : Colors.white,
+              color: isSelected ? Colors.black : Colors.black,
             ),
           ),
-          backgroundColor: isSelected ? ColorConstant.gd2 : ColorConstant.product_bgclr,
+          backgroundColor: isSelected ? ColorConstant.gd2 : ColorConstant.appColor,
           shape: StadiumBorder(
             side: BorderSide(
-              color: isSelected ? Colors.black : Colors.white,
+              width: 0,
+              color: isSelected ? ColorConstant.gd2 : ColorConstant.gd2,
             ),
           ),
         ),

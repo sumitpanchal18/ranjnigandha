@@ -69,7 +69,6 @@ class _CartScreenState extends State<CartScreen> {
               /// 🔹 Cart Items (Scrollable)
               Expanded(
                 child: ListView.builder(
-                  padding: EdgeInsets.only(top: 30), // Space for bottom summary
                   itemCount: cartItems.length,
                   itemBuilder: (context, index) {
                     return CartItemWidget(
